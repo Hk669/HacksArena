@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="events-lists">
+    <h1>Events</h1>
+    {% for event in events %}
+    <a href="{% url 'event_page' event.id %}">
+        <div>
+            {{event.title}}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+<div class="users">
+    <h1>Users</h1>
+    <div class="users-lists">
+        {% for user in users %}
+            <div>
+                {{user.name}}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock content %}

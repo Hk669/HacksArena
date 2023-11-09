@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{event.title}}</h1>
+    <p>{{event.description}}</p>
+    <a href="{% url 'event_conf' event.id %}">Register for the Event</a>
+    <div>
+        <h3>Event participants</h3>
+        {% for user in event.participants.all %}
+            <div>
+                <strong>{{user.name}}</strong>
+            <div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
