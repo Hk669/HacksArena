@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import User, Event
+from django.contrib.auth import logout
 
 
 def home(request):
@@ -22,3 +23,7 @@ def event_conf(request, pk):
         return redirect('event_page', pk=event.id)
     
     return render(request, 'event_conf.html', {'event':event})
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')

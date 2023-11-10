@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{event.title}}</h1>
-    <p>{{event.description}}</p>
-    <a href="{% url 'event_conf' event.id %}">Register for the Event</a>
-    <div>
+    <div class="event-details">
+        <div class="event-title">
+            <h1>{{event.title}}</h1>
+        </div>
+        <div class="event-description">
+            <p>{{event.description}}</p>
+        </div>
+        <a href="{% url 'event_conf' event.id %}" class="event-reg-link">Register for the Event</a>
+    </div>
+    <div class="event-participants">
         <h3>Event participants</h3>
         {% for user in event.participants.all %}
             <div>
