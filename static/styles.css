@@ -1,0 +1,18 @@
+.body {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
+    line-height: 1.78;
+    color: #000;
+    background-color: #fafaf9a2;
+}
+
+.navbar {
+    background-color:#fafaf92d;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+}
