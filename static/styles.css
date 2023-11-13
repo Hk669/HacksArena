@@ -4,15 +4,48 @@
     font-size: 14px;
     line-height: 1.78;
     color: #000;
-    background-color: #fafaf9a2;
+    background-color: #f5c4d9;
 }
 
 .navbar {
-    background-color:#fafaf92d;
+    background-color : #fff6df;
     padding: 10px;
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
     align-items: center;
+    border-radius: 20px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    font-size: large;
+    display: flex;
+}
+
+.navbar li {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.navbar navbar-right {
+    margin-left: auto;
+}
+.navbar-right ul li a {
+    color: #000;
+    font-weight: bold;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.home a {
+    text-decoration: none;
+    font-size: large;
+    margin-left: 20px;
+    color: #000;
+    font-weight: bold;
+
 }

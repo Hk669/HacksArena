@@ -27,3 +27,10 @@ def event_conf(request, pk):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+# login pages
+def custom_login(request):
+    return render(request, 'login.html')
+
+def github_login(request):
+    return render(request, 'github_login.html')
