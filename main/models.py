@@ -35,4 +35,4 @@ class Submission(models.Model):
     details = models.TextField(blank=True)
 
     def __str__(self):
-        return str(self.event) + 'by' + str(self.participant)
+        return str(self.event) + ' by ' + str(self.participant)

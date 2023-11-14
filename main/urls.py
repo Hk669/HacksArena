@@ -8,5 +8,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name="logout"),
     path('login/', views.custom_login, name="login"),
     path('profile/<str:pk>', views.user_page, name="profile"),
+    path('project-submission/<str:pk>', views.project_submission, name="project_submission")
     # path('accounts/github/login/', views.github_login, name="github_login"),
 ]

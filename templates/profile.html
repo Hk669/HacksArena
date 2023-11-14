@@ -12,8 +12,9 @@
 <div class="user-events">
     {% comment %} {% if user.events.exists %} {% endcomment %}
 
-        {% for event in user.events_participated.all %}
-            <p><a href="{% url 'event_page' pk=event.pk %}">{{event.name}}</a></p>
+        {% for event in user.events.all %}
+            <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
+            
         {% endfor %}
 
     {% comment %} {% else %}

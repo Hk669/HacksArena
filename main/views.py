@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import User, Event, UserProfile
 from django.contrib.auth import logout
 from django.http import HttpResponseNotFound
+from .forms import *
+
 
 def home(request):
     users = User.objects.filter(hackathon_participant=True)
@@ -31,6 +33,23 @@ def event_conf(request, pk):
     
     return render(request, 'event_conf.html', {'event':event})
 
+def project_submission(request, pk):
+    event = Event.objects.get(id=pk)
+
+    form = SubmissionForm()
+
+    if request.method == 'POST':
+        form = SubmissionForm(request.POST)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.participant = request.user
+            submission.event = event
+            submission.save()
+            
+            return redirect('profile', pk=pk)
+
+    context = {'event': event, 'form': form}
+    return render(request, 'submission.html', context)
 
 
 # login pages

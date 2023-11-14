@@ -8,7 +8,12 @@
         <div class="event-description">
             <p>{{event.description}}</p>
         </div>
+        {% if request.user in event.participants.all %}
+        <h4>You've already registered for the event</h4>
+        <a href="{% url 'project_submission' event.id %}">Submit</a>
+        {% else %}
         <a href="{% url 'event_conf' event.id %}" class="event-reg-link">Register for the Event</a>
+        {% endif %}
     </div>
     <div class="event-participants">
         <h3>Event participants</h3>
