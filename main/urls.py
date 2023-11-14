@@ -7,5 +7,6 @@ urlpatterns = [
     path('event-conf/<str:pk>/', views.event_conf, name='event_conf'),
     path('logout/', views.logout_view, name="logout"),
     path('login/', views.custom_login, name="login"),
+    path('profile/<str:pk>', views.user_page, name="profile"),
     # path('accounts/github/login/', views.github_login, name="github_login"),
 ]

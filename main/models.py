@@ -6,18 +6,22 @@ class User(AbstractUser):
     name = models.CharField(max_length=100, null=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True, blank=True)
-
-    # profilePic =
     hackathon_participant = models.BooleanField(default=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+
+    def event_participated(self):
+        return self.user.event_set.all()
 
 class Event(models.Model):
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=False, blank=False)
-    participants = models.ManyToManyField(User, blank=True)
+    participants = models.ManyToManyField(User, blank=True, related_name='events')
     date = models.DateField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)

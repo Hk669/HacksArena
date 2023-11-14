@@ -4,7 +4,11 @@
     <form method='post'>
         {% csrf_token %}
         <a href="{% url 'event_page' event.id %}">Back</a>
-        <input type="submit" value="Confirm">
+        {% if user.is_authenticated %}
+            <input type="submit" value="Confirm">
+        {% else %}
+            <a href="{% url 'login' %}">Please Login to Register</a>
+        {% endif %}
     </form>
 {% endblock %}
  

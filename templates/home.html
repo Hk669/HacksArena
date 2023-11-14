@@ -22,6 +22,7 @@
         <h1>Users</h1>
         <div class="users-lists">
             {% for user in users %}
+            <a href="{% url 'profile' user.id %}">
                 <div class="user-item">
                     {{ user.name }}
                 </div>
