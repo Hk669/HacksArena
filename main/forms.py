@@ -24,3 +24,6 @@ class SubmissionForm(forms.ModelForm):
     class Meta:
         model = Submission
         fields = ['details']
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Search')

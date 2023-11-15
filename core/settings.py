@@ -15,7 +15,7 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'main.User'
 
-SITE_ID = 3     #i created 1 extra site and deleted it.
+SITE_ID = 3     # created 1 extra site and deleted it 
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',

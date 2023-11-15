@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import User, Event, UserProfile
 from django.contrib.auth import logout
 from django.http import HttpResponseNotFound
+from django.db.models import Q
 from .forms import *
 
 
@@ -16,6 +17,18 @@ def user_page(request, pk):
     context = {'user': user}
     return render(request, 'profile.html', context)
 
+def search_users(request):
+    users = User.objects.filter(hackathon_participants=True)
+    events = Event.objects.all()
+
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        users = users.filter(Q(username__icontains=query) | Q(name__icontains=query))
+        events = events.filter(Q(title__icontains=query) | Q(description__icontains=query))
+
+    context = {'users': users, 'events': events, 'form': form}
+    return render(request, 'home.html', context)
 
 
 # event views
