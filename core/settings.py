@@ -15,7 +15,7 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'main.User'
 
-SITE_ID = 3     # created 1 extra site and deleted it 
+SITE_ID = 3     # created 1 extra site (example.com)
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -73,11 +73,11 @@ SOCIALACCOUNT_PROVIDERS = {
             'user:email',
         ],
 
-        'APP' : {
-            'client_id' : os.environ.get('CLIENT_ID'),
-            'secret' : os.environ.get("SECRET_GITHUB"),
-            'key' : ''
-        }
+        # 'APP' : {
+        #     'client_id' : os.environ.get('CLIENT_ID'),
+        #     'secret' : os.environ.get("SECRET_GITHUB"),
+        #     'key' : ''
+        # }
     }
 }
 

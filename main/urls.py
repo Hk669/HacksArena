@@ -12,4 +12,5 @@ urlpatterns = [
     path('events/', views.search_events, name="search_events"),
     path('hackers/',views.search_profile, name="search_profile"),
     # path('accounts/github/login/', views.github_login, name="github_login"),
+    # path('accounts/github/login/callback/', views.github_callback, name='github_callback'),
 ]
