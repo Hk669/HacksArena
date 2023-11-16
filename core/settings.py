@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware"
 ]
 
-
+# account providers (google, github)
 SOCIALACCOUNT_PROVIDERS = {
     'google' : {
         'SCOPE' : [
@@ -115,6 +115,20 @@ DATABASES = {
     }
 }
 
+# using MongoDB server instead of sqlite
+
+# DATABASES = {
+#     'default' : {
+#         'ENGINE' : 'djongo',
+#         'NAME' : os.environ.get('MONGO_NAME'),
+#         "CLIENT" : {
+#             'host' : os.environ.get('MONGO_host'),
+#             'username' : os.environ.get('MONGO_USER'),
+#             'password' : os.environ.get('MONGO_PASS'),
+#         }
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -140,9 +154,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# indian time
+TIME_ZONE = "Asia/Kolkata"
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 

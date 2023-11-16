@@ -26,7 +26,7 @@ def search_events(request):
         events = events.filter(Q(title__icontains=query) | Q(description__icontains=query))
 
     context = {'events': events, 'form': form}
-    return render(request, 'home.html', context)
+    return render(request, 'allevents.html', context)
 
 def search_profile(request):
     users = User.objects.filter(hackathon_participant=True)
@@ -37,6 +37,8 @@ def search_profile(request):
         users = users.filter(Q(username__icontains=query) | Q(name__icontains=query))
     context = {'users': users, 'form':form}
     return render(request, 'hackers.html',context)
+
+
 
 # event views
 def event_page(request, pk):
