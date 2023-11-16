@@ -3,4 +3,16 @@ MVP
 - Register an event
 - Submit the project for the specific event
 
-CRUD ops for all pages and profiles
+user (hackers)
+- profile page
+    - events registered/submitted
+    -details
+
+events (hackathons)
+- event page
+    - registered members
+    - details
+
+home 
+- events
+- search

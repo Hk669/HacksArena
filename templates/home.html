@@ -6,8 +6,8 @@
     </header>
     
     <section class="events">
-        <h1>Events</h1>
-        <div class="events-lists">
+        {% comment %} <h1>Events</h1> {% endcomment %}
+        {% comment %} <div class="events-lists">
             {% for event in events %}
                 <a href="{% url 'event_page' event.id %}">
                     <div class="event-item">
@@ -15,8 +15,8 @@
                     </div>
                 </a>
             {% endfor %}
-        </div>
-    </section>
+        </div> {% endcomment %}
+    {% comment %} </section>
     <div class="search-form">
         <form method="get" action="{% url 'home' %}">
             {{ form.as_p }}
@@ -33,7 +33,50 @@
                 </div>
             {% endfor %}
         </div>
-    </section>
+    </section> {% endcomment %}
+
+    <!-- Seacrh bar for home page events-->
+    <div class="search-form">
+        <form method="GET" action="{% url 'search_events' %}" id="search-form">
+            <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+        </form>
+        
+        <script>
+            var timeout;
+
+            function submitForm() {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                    document.getElementById('search-form').submit();
+                }, 700); 
+            }
+        </script>
+
+        {% comment %} <h2>Users</h2>
+        <ul>
+            {% if users %}
+                {% for user in users %}
+                    <li><a href="{% url 'profile' pk=user.id %}">{{ user.username }}</a></li>
+                {% endfor %}
+            {% else %}
+                <h3>No users found :( </h3>
+            {% endif %}
+        </ul> {% endcomment %}
+
+        <h2>Overview of the events</h2>
+        <ul>
+            {% if events %}
+                {% for event in events %}
+                    <li><a href="{% url 'event_page' pk=event.id %}">{{ event.title }}</a></li>
+                {% endfor %}
+            {% else %}
+                <h3>Nothing to explore</h3>
+                <a href="{% url 'home' %}">
+                    <h3>Explore 💁‍♂️</h3>
+                </a>
+            {% endif %}
+        </ul>
+    </div>
 </div>
 
 {% endblock content %}

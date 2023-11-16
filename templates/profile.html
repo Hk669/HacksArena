@@ -10,16 +10,16 @@
 </div>
 
 <div class="user-events">
-    {% comment %} {% if user.events.exists %} {% endcomment %}
-
+    {% if user.events.exists %}
         {% for event in user.events.all %}
             <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
             
         {% endfor %}
 
-    {% comment %} {% else %}
-        <p>No events</p>
-    {% endif %} {% endcomment %}
+    {% else %}
+        <p>Not registered to any of the events</p>
+        <a href="{% url 'home' %}">Explore Events</a>
+    {% endif %}
 </div>
 
 {% endblock %}

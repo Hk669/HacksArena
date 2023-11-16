@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="search-form">
+    <form method="GET" action="{% url 'search_events' %}" id="search-form">
+        <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+    </form>
+    
+    <script>
+        var timeout;
+
+        function submitForm() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                document.getElementById('search-form').submit();
+            }, 700); 
+        }
+    </script>
+    <h2>Events</h2>
+    <ul>
+        {% if events %}
+            {% for event in events %}
+                <li><a href="{% url 'event_page' pk=event.id %}">{{ event.title }}</a></li>
+            {% endfor %}
+        {% else %}
+            <h3>Nothing to explore</h3>
+            <a href="{% url 'home' %}">
+                <h3>Explore 💁‍♂️</h3>
+            </a>
+        {% endif %}
+    </ul>
+</div>
+{% endblock content %}

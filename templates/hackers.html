@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="search-form">
+    <form method="GET" action="{% url 'search_profile' %}" id="search-form">
+        <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+    </form>
+    
+    <script>
+        var timeout;
+
+        function submitForm() {
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                document.getElementById('search-form').submit();
+            }, 700); 
+        }
+    </script>
+    
+    <h2>Users</h2>
+    <ul>
+        {% if users %}
+            {% for user in users %}
+                <li><a href="{% url 'profile' pk=user.id %}">{{ user.username }}</a></li>
+            {% endfor %}
+        {% else %}
+            <h3>No users found :( </h3>
+        {% endif %}
+    </ul>
+</div>
+{% endblock content %}
