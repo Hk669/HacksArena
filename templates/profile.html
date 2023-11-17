@@ -3,11 +3,15 @@
 {% block content %}
 
 <div class="user-info">
-    {{ user.id }}
-    {{ user.username }}
-    {{user.name}}
-
+    {% comment %} {{ user.id }} {% endcomment %}
+    {{ user.name }}
+    {% if user.bio %}
+        {{ user.bio }}
+    {% else %}
+        <p>No bio available</p>
+    {% endif %}
 </div>
+
 
 <div class="user-events">
     {% if user.events.exists %}

@@ -74,6 +74,7 @@ def project_submission(request, pk):
     return render(request, 'submission.html', context)
 
 
+
 # login pages
 def logout_view(request):
     logout(request)
