@@ -49,3 +49,26 @@
     font-weight: bold;
 
 }
+
+.profile-avatar {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+
+.social-links {
+    display: flex;
+}
+
+.social-icon {
+    width: 30px; 
+    height: auto;
+    margin-right: 10px;
+}
+
+/* a {
+    text-decoration: none;
+    font-weight: bold;
+} */

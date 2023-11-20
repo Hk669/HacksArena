@@ -1,15 +1,40 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
 <div class="user-info">
-    {% comment %} {{ user.id }} {% endcomment %}
-    {{ user.name }}<br>
+    <img class="profile-avatar" src="{{ user.avatar.url }}" alt="Profile picture" /><br>
+    <strong>{{ user.name }}</strong><br>
     {% if user.bio %}
-        <p>{{ user.bio }}</p>
-    {% else %}
-        <p>No bio available</p>
+        <p>{{ user.bio | linebreaks| urlize }}</p>
     {% endif %}
+
+    <div class="social-links">
+        {% if user.twitter %}
+            <a href="{{ user.twitter }}" title="Twitter">
+                <img class="social-icon" src="{% static 'twitter.svg' %}" alt="Twitter Logo">
+            </a>
+        {% endif %}
+
+        {% if user.linkedin %}
+            <a href="{{ user.linkedin }}" title="LinkedIn">
+                <img class="social-icon" src="{% static 'linkedin.svg' %}" alt="LinkedIn Logo">
+            </a>
+        {% endif %}
+
+        {% if user.website %}
+            <a href="{{ user.website }}" title="Website">
+                <img class="social-icon" src="{% static 'website.svg' %}" alt="Website Logo">
+            </a>
+        {% endif %}
+
+        {% if user.github %}
+            <a href="{{ user.github }}" title="GitHub">
+                <img class="social-icon" src="{% static 'github.svg' %}" alt="GitHub Logo">
+            </a>
+        {% endif %}
+    </div>
+</div>
 </div>
 
 
