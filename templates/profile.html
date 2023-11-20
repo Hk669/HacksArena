@@ -14,7 +14,9 @@
 
 
 <div class="user-events">
+
     {% if user.events.exists %}
+        <h2>Events paritcipated by {{user.name}}</h2>
         {% for event in user.events.all %}
             <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
             
