@@ -4,9 +4,9 @@
 
 <div class="user-info">
     {% comment %} {{ user.id }} {% endcomment %}
-    {{ user.name }}
+    {{ user.name }}<br>
     {% if user.bio %}
-        {{ user.bio }}
+        <p>{{ user.bio }}</p>
     {% else %}
         <p>No bio available</p>
     {% endif %}
@@ -27,5 +27,23 @@
         <a href="{% url 'home' %}">Explore Events</a>
     {% endif %}
 </div>
+
+<div class="user-sub">
+    <h2>My Submissions</h2>
+    {% if user.submission_set.exists %}
+        <ul>
+            {% for sub in user.submission_set.all %}
+                <li>
+                    <a href="{% url 'update_submission' pk=sub.id %}">{{ sub.event.title }}</a>
+                    {% comment %} - {{ sub.details|default:"No details available" }} {% endcomment %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No submissions available</p>
+    {% endif %}
+</div>
+
+
 
 {% endblock %}

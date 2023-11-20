@@ -1,7 +1,8 @@
 MVP
-- Login/register
+- Login/register(github, google, custom)
 - Register an event
 - Submit the project for the specific event
+- edit the submissions
 
 user (hackers)
 - profile page
@@ -13,6 +14,6 @@ events (hackathons)
     - registered members
     - details
 
-home 
-- events
+features:
 - search
+- update submissions
