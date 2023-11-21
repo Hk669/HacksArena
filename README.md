@@ -20,6 +20,10 @@ HacksArena is an event management application designed to streamline the organiz
   - Participants can create profiles showcasing their skills and interests.
   - Search functionality to find and connect with other users.
 
+- **Blog Management:**
+ - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
+ - their experiences, insights, and tips related to hackathons.
+
 - **Search Functionality:**
   - Search for hackathons based on titles and descriptions.
   - Search for users based on usernames and names.
@@ -73,23 +77,40 @@ export SECRET_GITHUB="client-secret"
 
 ## Usage
 
+![Account](images/image.png)
+---
+
+![Login Page](images/image-4.png)
 1. **User Registration:**
    - Create an account on HacksArena.
    - Use social accounts (GitHub, Google) for quick registration.
+---
 
+![Events](images/image-3.png)
 2. **Explore Events:**
    - Browse upcoming hackathons.
    - View detailed information about each event.
+---
 
 3. **Event Registration:**
    - Register for hackathons you're interested in.
+---
 
+![Users](images/image-2.png)
 4. **User Profiles:**
    - Create and customize your user profile.
    - Connect with other participants.
+---
 
+![Search](images/image-5.png)
 5. **Search Functionality:**
    - Use the search feature to find hackathons or users.
+---
+
+![Blogs](images/image-1.png)
+6. **Blog Management:**
+ - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
+ - their experiences, insights, and tips related to hackathons.
 
 
 ## License
