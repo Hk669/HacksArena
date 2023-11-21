@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="user-info">
+    <img class="profile-avatar" src="{{ user.avatar.url }}" alt="Profile picture" /><br>
+    <strong>{{ user.name }}</strong><br>
+    {% if user.bio %}
+        <p>{{ user.bio | linebreaks| urlize }}</p>
+    {% endif %}
+
+    <form class="userinfo-edit" method= 'POST'>
+        {% csrf_token %}
+        {{form.as_p}}
+    </form>
+
+    <div class="social-links">
+        {% if user.twitter %}
+            <a href="{{ user.twitter }}" title="Twitter">
+                <img class="social-icon" src="{% static 'twitter.svg' %}" alt="Twitter Logo">
+            </a>
+        {% endif %}
+
+        {% if user.linkedin %}
+            <a href="{{ user.linkedin }}" title="LinkedIn">
+                <img class="social-icon" src="{% static 'linkedin.svg' %}" alt="LinkedIn Logo">
+            </a>
+        {% endif %}
+
+        {% if user.website %}
+            <a href="{{ user.website }}" title="Website">
+                <img class="social-icon" src="{% static 'website.svg' %}" alt="Website Logo">
+            </a>
+        {% endif %}
+
+        {% if user.github %}
+            <a href="{{ user.github }}" title="GitHub">
+                <img class="social-icon" src="{% static 'github.svg' %}" alt="GitHub Logo">
+            </a>
+        {% endif %}
+    </div>
+</div>
+</div>
+
+
+<div class="user-events">
+
+    {% if user.events.exists %}
+        <h2>Events paritcipated by {{user.name}}</h2>
+        {% for event in user.events.all %}
+            <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
+            
+        {% endfor %}
+
+    {% else %}
+        <p>Not registered to any of the events</p>
+        <a href="{% url 'home' %}">Explore Events</a>
+    {% endif %}
+</div>
+
+<div class="user-sub">
+    <h2>My Submissions</h2>
+    {% if user.submission_set.exists %}
+        <ul>
+            {% for sub in user.submission_set.all %}
+                <li>
+                    <a href="{% url 'update_submission' pk=sub.id %}">{{ sub.event.title }}</a>
+                    {% comment %} - {{ sub.details|default:"No details available" }} {% endcomment %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No submissions available</p>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

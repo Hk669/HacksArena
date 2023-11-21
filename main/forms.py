@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import User, Event, Submission
+from .models import User, Event, Submission, Posts
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
@@ -18,7 +18,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = '__all__'
 
 class SubmissionForm(forms.ModelForm):
     class Meta:
@@ -27,3 +27,9 @@ class SubmissionForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     query = forms.CharField(label='Search')
+
+
+class BlogPostForm(forms.Form):
+    class Meta:
+        model = Posts
+        fields = ['title','content']

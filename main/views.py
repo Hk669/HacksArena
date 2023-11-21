@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User, Event, UserProfile
 from django.contrib.auth import logout
 from django.http import HttpResponseNotFound
@@ -19,6 +19,21 @@ def user_page(request, pk):
     user = User.objects.get(id=pk)
     context = {'user': user}
     return render(request, 'profile.html', context)
+
+def profile(request, pk):
+    user = User.objects.get(id=pk)
+    form = UserUpdateForm(instance=user)
+
+    if request.method == "POST":
+        form = UserUpdateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+                          
+    context = {'user':user, 'form':form}
+    return render(request, 'account.html',context)
+
+
 
 def search_events(request):
     events = Event.objects.all()
@@ -133,3 +148,42 @@ def logout_view(request):
 
 def github_login(request):
     return render(request, 'github_login.html')
+
+#blog posts
+
+def blog_home(request):
+    posts = Posts.objects.all()
+    return render(request, "blogs/bloghome.html", {'posts': posts})
+
+
+@login_required
+def create_blog(request):
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user
+            new_post.save()
+            return redirect('blog-home')
+    else:
+        form = BlogPostForm()
+    return render(request, 'blogs/blogpost.html', {'form': form})
+
+
+@login_required
+def delete_blog(request, pk):
+    blog_post = get_object_or_404(Posts,pk=pk)
+
+    if request.user == blog_post.author:
+        if request.method == 'POST':
+            blog_post.delete()
+            return redirect('blog-home')
+    
+        return render(request, 'blogs/deleteblog.html', {'post': blog_post})
+    else:
+        return render(request, 'blogs/blogdetail.html', {'post': blog_post})
+
+
+def blog_post_detail(request, pk):
+    post = get_object_or_404(Posts, pk=pk)
+    return render(request, 'blogs/blogdetail.html', {'post':post})

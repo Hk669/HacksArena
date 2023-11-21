@@ -14,6 +14,11 @@ urlpatterns = [
     path('events/', views.search_events, name="search_events"),
     path('hackers/',views.search_profile, name="search_profile"),
     path('accounts/login', views.custom_login, name="custom-login"),
+    path('account/<str:pk>/', views.profile, name="account"),
     # path('accounts/github/login/', views.github_login, name="github_login"),
     # path('accounts/github/login/callback/', views.github_callback, name='github_callback'),
+    path('blogs/',views.blog_home, name='blog-home'),
+    path('blogpost/', views.create_blog, name='create_blog'),
+    path('delete/<int:pk>/',views.delete_blog, name="delete_blog"),
+    path('blog/<int:pk>/',views.blog_post_detail, name="blog_post_detail"),
 ]
