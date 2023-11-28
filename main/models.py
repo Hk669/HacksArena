@@ -26,6 +26,7 @@ class UserProfile(models.Model):
         return self.user.event_set.all()
 
 class Event(models.Model):
+    avatar = models.ImageField(default='default1.png')
     title = models.CharField(max_length=200, null=False)
     description = models.TextField(null=False, blank=False)
     participants = models.ManyToManyField(User, blank=True, related_name='events')

@@ -77,7 +77,8 @@ export SECRET_GITHUB="client-secret"
 
 ## Usage
 
-![Account](images/image.png)
+![Account](images/userprofile.png)
+   - Edit the user profile 
 ---
 
 ![Login Page](images/image-4.png)
@@ -86,7 +87,7 @@ export SECRET_GITHUB="client-secret"
    - Use social accounts (GitHub, Google) for quick registration.
 ---
 
-![Events](images/image-3.png)
+![Events](images/events.png)
 2. **Explore Events:**
    - Browse upcoming hackathons.
    - View detailed information about each event.
@@ -96,7 +97,7 @@ export SECRET_GITHUB="client-secret"
    - Register for hackathons you're interested in.
 ---
 
-![Users](images/image-2.png)
+![Users](images/hackers.png)
 4. **User Profiles:**
    - Create and customize your user profile.
    - Connect with other participants.
@@ -107,11 +108,12 @@ export SECRET_GITHUB="client-secret"
    - Use the search feature to find hackathons or users.
 ---
 
-![Blogs](images/image-1.png)
+![Blogs](images/blogs.png)
 6. **Blog Management:**
  - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
  - their experiences, insights, and tips related to hackathons.
 
+---
 
 ## License
 

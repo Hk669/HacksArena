@@ -9,10 +9,15 @@
         <p>{{ user.bio | linebreaks| urlize }}</p>
     {% endif %}
 
-    <form class="userinfo-edit" method= 'POST'>
+    <button id="edit-button">Edit</button>
+
+    <form class="userinfo-edit" method='POST' enctype="multipart/form-data" style="display: none;">
         {% csrf_token %}
-        {{form.as_p}}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
     </form>
+
+
 
     <div class="social-links">
         {% if user.twitter %}
@@ -38,6 +43,8 @@
                 <img class="social-icon" src="{% static 'github.svg' %}" alt="GitHub Logo">
             </a>
         {% endif %}
+
+        
     </div>
 </div>
 </div>
@@ -74,6 +81,21 @@
     {% endif %}
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var editButton = document.getElementById("edit-button");
+        var editForm = document.querySelector(".userinfo-edit");
+
+        editButton.addEventListener("click", function () {
+            // Toggle the display of the edit form
+            if (editForm.style.display === "none" || editForm.style.display === "") {
+                editForm.style.display = "block";
+            } else {
+                editForm.style.display = "none";
+            }
+        });
+    });
+</script>
 
 
 {% endblock %}

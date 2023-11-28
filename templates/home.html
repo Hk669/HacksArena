@@ -1,44 +1,65 @@
+
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <div class="container">
     <header>
         {% comment %} {% load socialaccount %} {% endcomment %}
     </header>
-    
-    <section class="events">
-        {% comment %} <h1>Events</h1> {% endcomment %}
-        {% comment %} <div class="events-lists">
-            {% for event in events %}
-                <a href="{% url 'event_page' event.id %}">
-                    <div class="event-item">
-                        {{ event.title }}
-                    </div>
-                </a>
-            {% endfor %}
-        </div> {% endcomment %}
-    {% comment %} </section>
-    <div class="search-form">
-        <form method="get" action="{% url 'home' %}">
-            {{ form.as_p }}
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <section class="users">
-        <h1>Users</h1>
-        <div class="users-lists">
-            {% for user in users %}
-            <a href="{% url 'profile' user.id %}">
-                <div class="user-item">
-                    {{ user.username }}
-                </div>
-            {% endfor %}
-        </div>
-    </section> {% endcomment %}
+    <style>
 
+    .event-cards {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-evenly;
+
+    }
+
+    .event-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+    }
+    
+    .event-avatar {
+        max-width: 100%;
+        max-height: 100px;
+        border-radius: 8px;
+    }
+
+    .event-card p {
+        font-weight: bold;
+        text-align:left;
+
+    }
+    .register-button {
+        background-color: #000;
+        color: white;
+        padding: 4px 6px;
+        text-decoration: None;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-form {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    #search-form {
+        display: inline-block;
+    }
+    
+</style>
+    <section class="events">
     <!-- Seacrh bar for home page events-->
     <div class="search-form">
         <form method="GET" action="{% url 'search_events' %}" id="search-form">
-            <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+            <input type="text" name="query" placeholder="Search...">
+            <input type="submit" value="Search">
         </form>
         
         <script>
@@ -51,23 +72,19 @@
                 }, 700); 
             }
         </script>
-
-        {% comment %} <h2>Users</h2>
-        <ul>
-            {% if users %}
-                {% for user in users %}
-                    <li><a href="{% url 'profile' pk=user.id %}">{{ user.username }}</a></li>
-                {% endfor %}
-            {% else %}
-                <h3>No users found :( </h3>
-            {% endif %}
-        </ul> {% endcomment %}
-
+    </div>
+    <div>
         <h2>Overview of the events</h2>
         <ul>
             {% if events %}
+            <div class="event-cards">
                 {% for event in events %}
-                    <li><a href="{% url 'event_page' pk=event.id %}">{{ event.title }}</a></li>
+                <div class="event-card">
+                <img class="event-avatar" src="{{ event.avatar.url }}" alt="Event Avatar" style="max-width: 150px; max-height: 150px;">
+                    <h4>{{ event.title }}</h4>
+                    <p>{{ event.description | linebreaks | truncatewords:10 }}</p>
+                    <a href="{% url 'event_page' pk=event.id %}" class="register-button">Register</a>
+                </div>
                 {% endfor %}
             {% else %}
                 <h3>Nothing to explore</h3>

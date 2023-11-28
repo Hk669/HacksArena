@@ -21,11 +21,15 @@ def user_page(request, pk):
     return render(request, 'profile.html', context)
 
 def profile(request, pk):
+
+    if request.user.id != int(pk):
+        return redirect('home')
+    
     user = User.objects.get(id=pk)
     form = UserUpdateForm(instance=user)
 
     if request.method == "POST":
-        form = UserUpdateForm(request.POST)
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect('home')

@@ -1,9 +1,57 @@
 {% extends "base.html" %}
-
 {% block content %}
+<style>
+
+    .event-cards {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-evenly;
+    }
+
+    .event-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+
+    }
+    
+    .event-avatar {
+        max-width: 100%;
+        max-height: 100px;
+        border-radius: 8px;
+    }
+
+    .event-card p {
+        font-weight: bold;
+        text-align:left;
+
+    }
+    .register-button {
+        background-color: #000;
+        color: white;
+        padding: 4px 6px;
+        text-decoration: None;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-form {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    #search-form {
+        display: inline-block;
+    }
+</style>
+
 <div class="search-form">
     <form method="GET" action="{% url 'search_events' %}" id="search-form">
-        <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+        <input type="text" name="query" placeholder="Search...">
+        <input type="submit" value="Search">
     </form>
     
     <script>
@@ -16,18 +64,27 @@
             }, 700); 
         }
     </script>
+</div>
+<div>
     <h2>Events</h2>
     <ul>
         {% if events %}
-            {% for event in events %}
-                <li><a href="{% url 'event_page' pk=event.id %}">{{ event.title }}</a></li>
-            {% endfor %}
-        {% else %}
-            <h3>Nothing to explore</h3>
-            <a href="{% url 'home' %}">
-                <h3>Explore 💁‍♂️</h3>
-            </a>
-        {% endif %}
+            <div class="event-cards">
+                {% for event in events %}
+                <div class="event-card">
+                <img class="event-avatar" src="{{ event.avatar.url }}" alt="Event Avatar" style="max-width: 150px; max-height: 150px;">
+                    <h4>{{ event.title }}</h4>
+                    <p>{{ event.description | linebreaks | truncatewords:10 }}</p>
+                    <a href="{% url 'event_page' pk=event.id %}" class="register-button">Register</a>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <h3>Nothing to explore</h3>
+                <a href="{% url 'home' %}">
+                    <h3>Explore 💁‍♂️</h3>
+                </a>
+            {% endif %}
     </ul>
 </div>
 {% endblock content %}

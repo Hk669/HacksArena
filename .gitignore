@@ -1,3 +1,11 @@
+# env variables
 .env
 db.sqlite3
 .*pyc
+
+# dependencies
+.vs
+.vscode
+
+# media files
+media

@@ -1,16 +1,41 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
+<style>
+  .blog-img {
+      width:30px;
+      height:30px;
+   }
+
+  .blog-item {
+    background-color:#88b4e0;
+    color:#fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    width: 80%;
+    margin-left: 40px;
+    margin-top: 40px;
+    display:flex;
+    align-items: center;
+  }
+
+  .blog-item p {
+    color:#000;
+    font-weight: bold;
+    margin-left: 20px;
+  }
+
+</style>
+
     {% for post in posts %}
-        <article class="media content-section rounded p-3 mb-6" style="background-color: #000; color: #fff; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5); width: 150%;">
-          <img class="rounded-circle article-img" src="{{ post.author.userprofile.image.url }}">
-          <div class="media-body">
+        <article class="blog-item">
+          <img class="blog-img" src="{{ post.author.avatar.url }}" alt="Blog-Image">
+          <div class="media-body ml-3">
             <div class="article-metadata">
-              <a class="mr-2 text-white" href="#">{{ post.author }}</a>
-              <small class="text-muted">{{ post.date_posted|date:'F d Y' }}</small>
+              <a class="blog-author" href="{% url 'profile' post.author.id %}">{{ post.author.name }}</a>
+              <small class="blog-date">{{ post.date_posted|date:'F d Y' }}</small>
             </div>
-            <h2><a class="article-title text-white" href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
+            <h2><a class="blog-title" href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <p class="blog-short-desc">{{ post.content | linebreaks | truncatewords:15 }}</p>
           </div>
         </article>
     {% endfor %}

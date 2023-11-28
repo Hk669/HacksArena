@@ -3,13 +3,17 @@
 {% block content %}
     <div class="event-details">
         <div class="event-title">
+            <img src="{{ event.avatar.url }}" alt=Event-img style="max-width: 350px; max-height: 350px;">
             <h1>{{event.title}}</h1>
         </div>
         <div class="event-description">
-            <p>{{event.description}}</p>
+            
+            <p>{{event.description | linebreaks | urlize}}</p>
+            <p><strong>Registration deadline : {{event.reg_deadline}}</strong></p>
+
         </div>
         {% if request.user in event.participants.all %}
-        <h4>You've already registered for the event</h4>
+        <h4 style="color:red;">You've already registered for the event</h4>
         {% else %}
         <a href="{% url 'event_conf' event.id %}" class="event-reg-link">Register for the Event</a>
         {% endif %}

@@ -1,9 +1,65 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+
+    .user-cards {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: space-around;
+    }
+
+    .user-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+    }
+    
+    .user-avatar {
+        max-width: 100%;
+        max-height: 100px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .user-card h3 {
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .user-card a {
+        text-decoration:None;
+        color: #000;
+    }
+
+    .view-button {
+        background-color: #000;
+        color: white !important;
+        padding: 4px 6px;
+        text-decoration: None;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .search-form {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    #search-form {
+        display: inline-block;
+    }
+    
+</style>
+
 <div class="search-form">
     <form method="GET" action="{% url 'search_profile' %}" id="search-form">
-        <input type="text" name="query" placeholder="Search..." oninput="submitForm()">
+        <input type="text" name="query" placeholder="Search...">
+        <input type="submit" value="Search">
     </form>
     
     <script>
@@ -19,13 +75,21 @@
     
     <h2>Users</h2>
     <ul>
-        {% if users %}
-            {% for user in users %}
-                <li><a href="{% url 'profile' pk=user.id %}">{{ user.username }}</a></li>
-            {% endfor %}
-        {% else %}
-            <h3>No users found :( </h3>
-        {% endif %}
+        <div class="user-cards">
+            {% if users %}
+                {% for user in users %}
+                <div class="user-card">
+                    <img class="user-avatar" src="{{ user.avatar.url }}" alt="Avatar">
+                    <h3>{{ user.username }}</h3>
+                    <a href="{% url 'profile' pk=user.id %}" class="view-button">View Profile</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h3>No users found :( </h3>
+            {% endif %}
+        </div>
+    </div>
     </ul>
+
 </div>
 {% endblock content %}

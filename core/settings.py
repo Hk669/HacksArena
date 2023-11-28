@@ -9,9 +9,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1']
 
 AUTH_USER_MODEL = 'main.User'
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -108,12 +111,29 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Azure postgres SQl database
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "postgres",
+#         "USER": "hrushi669",
+#         "PASSWORD": os.environ.get("DBPASSWORD"),
+#         "HOST": "hacksarena-db.postgres.database.azure.com",
+#         "PORT": "5432",
+#         "OPTIONS" : {
+#             "sslmode": "require"
+#         }
+#     }
+# }
+
+#default
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
 
 # using MongoDB server instead of sqlite
 
@@ -169,6 +189,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+# Azure hosting
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -181,3 +206,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
+
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_DOMAIN = 'hacksarena.azurewebsites.net'

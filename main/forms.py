@@ -18,7 +18,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['username', 'email', 'name', 'bio', 'avatar', 'twitter', 'linkedin', 'website', 'github']
 
 class SubmissionForm(forms.ModelForm):
     class Meta:
