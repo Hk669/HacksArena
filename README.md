@@ -78,6 +78,7 @@ export SECRET_GITHUB="client-secret"
 ## Usage
 
 ![Account](images/userprofile.png)
+   **User Profile**
    - Edit the user profile 
 ---
 
