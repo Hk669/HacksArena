@@ -24,6 +24,10 @@ HacksArena is an event management application designed to streamline the organiz
  - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
  - their experiences, insights, and tips related to hackathons.
 
+- **Implemented redis cache**
+ - cache for the blog posts
+ - events information
+
 - **Search Functionality:**
   - Search for hackathons based on titles and descriptions.
   - Search for users based on usernames and names.
@@ -58,6 +62,29 @@ HacksArena is an event management application designed to streamline the organiz
 export SECRET_KEY="your-secret-key"
 export CLIENT_ID="client-id"
 export SECRET_GITHUB="client-secret"
+
+```
+### For redis cache
+```bash
+
+# in the ubuntu
+
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+
+sudo apt-get update
+sudo apt-get install redis
+
+```
+---
+
+Lastly to start the redis server like so:
+```bash
+
+sudo service redis-server start
+
+redis-cli
+# 127.0.0.1:6379> ping
+# PONG
 
 ```
 
@@ -116,9 +143,17 @@ export SECRET_GITHUB="client-secret"
 
 ---
 
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Contact
+
+If you have any queries, encounter issues, or need assistance, feel free to reach out to me.
+
+**Email:** hrushikesh.dokala@studentambassadors.com
 
 ## Acknowledgments
 

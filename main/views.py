@@ -7,6 +7,40 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
+from django.conf import settings
+
+# redis cache
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+from django.core.cache import cache
+from django.utils.cache import get_cache_key
+
+# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+def cache_key_func(request, *args, **kwargs):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        return f"{request.path}:{query}"
+
+def get_or_set_cache(request, cache_key, timeout, callback):
+    data = cache.get(cache_key)
+    if data is None:
+        data = callback()
+        cache.set(cache_key, data, timeout)
+    return data
+
+@cache_page(60 * 15)  # Cache for 15 minutes 
+def search_events(request):
+    cache_key = cache_key_func(request)
+    return get_or_set_cache(request, cache_key, 60 * 15, lambda: _search_events(request))
+
+# @cache_page(60 * 15)  
+# def search_profile(request):
+#     cache_key = cache_key_func(request)
+#     return get_or_set_cache(request, cache_key, 60 * 15, lambda: _search_profile(request))
+
+
 
 # no login views
 def home(request):
@@ -15,19 +49,19 @@ def home(request):
     context = {'users':users,'events':events}
     return render(request, 'home.html', context)
 
+
 def user_page(request, pk):
     user = User.objects.get(id=pk)
     context = {'user': user}
     return render(request, 'profile.html', context)
 
-def profile(request, pk):
 
+def profile(request, pk):
     if request.user.id != int(pk):
         return redirect('home')
     
     user = User.objects.get(id=pk)
     form = UserUpdateForm(instance=user)
-
     if request.method == "POST":
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -38,10 +72,8 @@ def profile(request, pk):
     return render(request, 'account.html',context)
 
 
-
-def search_events(request):
+def _search_events(request):
     events = Event.objects.all()
-
     form = SearchForm(request.GET)
     if form.is_valid():
         query = form.cleaned_data['query']
@@ -50,9 +82,9 @@ def search_events(request):
     context = {'events': events, 'form': form}
     return render(request, 'allevents.html', context)
 
+
 def search_profile(request):
     users = User.objects.filter(hackathon_participant=True)
-
     form = SearchForm(request.GET)
     if form.is_valid():
         query = form.cleaned_data['query']
@@ -63,6 +95,7 @@ def search_profile(request):
 
 
 # event views
+@cache_page(60*150)
 def event_page(request, pk):
     event = Event.objects.get(id=pk)
     context = {'event':event}
@@ -92,7 +125,7 @@ def project_submission(request, pk):
             submission.event = event
             submission.save()
             
-            return redirect('profile', pk=pk)
+            return redirect('event_page', pk=pk)
 
     context = {'event': event, 'form': form}
     return render(request, 'submission.html', context)
@@ -155,6 +188,7 @@ def github_login(request):
 
 #blog posts
 
+@cache_page(60*150)
 def blog_home(request):
     posts = Posts.objects.all()
     return render(request, "blogs/bloghome.html", {'posts': posts})
@@ -187,7 +221,7 @@ def delete_blog(request, pk):
     else:
         return render(request, 'blogs/blogdetail.html', {'post': blog_post})
 
-
+@cache_page(60*150)
 def blog_post_detail(request, pk):
     post = get_object_or_404(Posts, pk=pk)
     return render(request, 'blogs/blogdetail.html', {'post':post})

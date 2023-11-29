@@ -26,6 +26,8 @@
                 </li>
             {% endfor %}
         </ul>
+        {% else %}
+            <a href="{% url 'project_submission' pk=event.id %}">Project Submission</a>
         {% endif %}
     </div>
     <div class="event-participants">

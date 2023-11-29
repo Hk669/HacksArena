@@ -26,6 +26,7 @@
 
 </style>
 
+
     {% for post in posts %}
         <article class="blog-item">
           <img class="blog-img" src="{{ post.author.avatar.url }}" alt="Blog-Image">
@@ -39,4 +40,10 @@
           </div>
         </article>
     {% endfor %}
+
+    {% comment %} <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }} 
+      <button type="submit">Write</button>
+    </form> {% endcomment %}
 {% endblock content %}
