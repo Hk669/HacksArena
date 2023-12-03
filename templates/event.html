@@ -9,7 +9,13 @@
         <div class="event-description">
             
             <p>{{event.description | linebreaks | urlize}}</p>
+            {% if event.reg_deadline < now %}
+            <p><strong>Registration is over</strong></p>
+            {% elif event.reg_deadline > now %}
             <p><strong>Registration deadline : {{event.reg_deadline}}</strong></p>
+            {% elif event.end_date < now %}
+                <h4>Event has ended on {{event.end_date}}</h4>
+            {% endif %}
 
         </div>
         {% if request.user in event.participants.all %}
@@ -27,7 +33,15 @@
             {% endfor %}
         </ul>
         {% else %}
-            <a href="{% url 'project_submission' pk=event.id %}">Project Submission</a>
+            {% if request.user in event.participants.all %}
+                {% if event.start_date < now and event.end_date > now %}
+                    <a href="{% url 'project_submission' pk=event.id %}">Project Submission</a>
+                {% elif event.start_date > now %}
+                    <h3>Thanks for registration. Please wait till the event start: {{event.start_date}}</h3>
+                {% endif %}
+            {% else %}
+                    <h3>Please register for the event and wait for the event to start to make submissions</h3>
+            {% endif %}
         {% endif %}
     </div>
     <div class="event-participants">

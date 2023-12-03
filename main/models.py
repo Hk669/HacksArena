@@ -51,6 +51,7 @@ class Submission(models.Model):
 class Posts(models.Model):
     title = models.CharField(max_length=255, null=False, blank=False)
     content = models.TextField(null=False)
+    # image = models.ImageField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
 

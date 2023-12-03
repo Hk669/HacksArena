@@ -29,7 +29,7 @@ class SearchForm(forms.Form):
     query = forms.CharField(label='Search')
 
 
-class BlogPostForm(forms.Form):
+class BlogPostForm(forms.ModelForm):
     class Meta:
         model = Posts
         fields = ['title','content']

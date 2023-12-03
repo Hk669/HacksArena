@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     # installed apps
     'main',
 
+    #share links
+    'django_social_share',
+
     # for allauth
     'rest_framework',
     'django.contrib.sites',
@@ -84,6 +87,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_CALLBACK_URL = 'https://hacksarena.azurewebsites.net/accounts/google/login/callback/'
+
 
 ROOT_URLCONF = "core.urls"
 
@@ -112,27 +117,28 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Azure postgres SQl database
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "postgres",
-#         "USER": "hrushi669",
-#         "PASSWORD": os.environ.get("DBPASSWORD"),
-#         "HOST": "hacksarena-db.postgres.database.azure.com",
-#         "PORT": "5432",
-#         "OPTIONS" : {
-#             "sslmode": "require"
-#         }
-#     }
-# }
-
-#default
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "hrushi669",
+        # "PASSWORD": os.environ.get("DBPASSWORD"),
+        "PASSWORD": "hrushi@669",
+        "HOST": "hacksarena-db.postgres.database.azure.com",
+        "PORT": "5432",
+        "OPTIONS" : {
+            "sslmode": "require"
+        }
     }
 }
+
+#default
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # using MongoDB server instead of sqlite
@@ -154,16 +160,21 @@ DATABASES = {
 
 CACHE_TTL = 60 * 1500  # time cache exists
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
-        },
-        "KEY_PREFIX": "example"
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'redis://127.0.0.1:6379/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#             'PASSWORD' : 'hrushi@669',
+#         },
+        
+#         'TIMEOUT': 300,
+#     }
+# }
+
+# Set your Redis password as an environment variable
+# REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

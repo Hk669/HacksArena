@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from datetime import datetime
 
 # redis cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -30,7 +31,7 @@ def get_or_set_cache(request, cache_key, timeout, callback):
         cache.set(cache_key, data, timeout)
     return data
 
-@cache_page(60 * 15)  # Cache for 15 minutes 
+# @cache_page(60 * 15)  # Cache for 15 minutes 
 def search_events(request):
     cache_key = cache_key_func(request)
     return get_or_set_cache(request, cache_key, 60 * 15, lambda: _search_events(request))
@@ -95,10 +96,11 @@ def search_profile(request):
 
 
 # event views
-@cache_page(60*150)
+# @cache_page(60*150)
 def event_page(request, pk):
     event = Event.objects.get(id=pk)
-    context = {'event':event}
+    now = datetime.now()
+    context = {'event':event, 'now':now }
     return render(request, 'event.html', context)
 
 @login_required()
@@ -188,7 +190,7 @@ def github_login(request):
 
 #blog posts
 
-@cache_page(60*150)
+# @cache_page(60*150)
 def blog_home(request):
     posts = Posts.objects.all()
     return render(request, "blogs/bloghome.html", {'posts': posts})
@@ -221,7 +223,7 @@ def delete_blog(request, pk):
     else:
         return render(request, 'blogs/blogdetail.html', {'post': blog_post})
 
-@cache_page(60*150)
+# @cache_page(60*150)
 def blog_post_detail(request, pk):
     post = get_object_or_404(Posts, pk=pk)
     return render(request, 'blogs/blogdetail.html', {'post':post})

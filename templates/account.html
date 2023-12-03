@@ -4,7 +4,7 @@
 
 <div class="user-info">
     <img class="profile-avatar" src="{{ user.avatar.url }}" alt="Profile picture" /><br>
-    <strong>{{ user.name }}</strong><br>
+    <strong>{{ user.username }}</strong><br>
     {% if user.bio %}
         <p>{{ user.bio | linebreaks| urlize }}</p>
     {% endif %}
