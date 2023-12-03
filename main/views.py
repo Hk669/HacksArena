@@ -249,3 +249,9 @@ def edit_blog(request, pk):
         form = BlogPostForm(instance=blog_post)
 
     return render(request, 'blogs/edit_blog.html', {'form': form, 'post': blog_post})
+
+def handling_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def handling_500(request):
+    return render(request, '500.html', status=500)
