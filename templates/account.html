@@ -49,14 +49,32 @@
 </div>
 </div>
 
+<div class="blogs-user">
+    <h3>Blogs</h3>
+    {% if user.posts.exists %}
+        <ul>
+            {% for blog in user.posts.all %}
+                <li>
+                    <a href="{% url 'blog_post_detail' pk=blog.pk %}">{{ blog.title }}</a>
+                </li>
+                {% endfor %}
+        </ul>
+    {% else %}
+        <h4>No blogs written by the {{ user.username }}
+    {% endif %}
+</div>
+
 
 <div class="user-events">
 
     {% if user.events.exists %}
-        <h2>Events paritcipated by {{user.name}}</h2>
+        <h3>Events paritcipated</h3>
         {% for event in user.events.all %}
-            <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
-            
+            <ul>
+                <li>
+                    <a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a>
+                </li>
+            </ul>
         {% endfor %}
 
     {% else %}

@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 from datetime import datetime
+from django.contrib import messages
 
 # redis cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
@@ -227,3 +228,24 @@ def delete_blog(request, pk):
 def blog_post_detail(request, pk):
     post = get_object_or_404(Posts, pk=pk)
     return render(request, 'blogs/blogdetail.html', {'post':post})
+
+@login_required
+def edit_blog(request, pk):
+    blog_post = get_object_or_404(Posts, pk=pk)
+
+    if request.user != blog_post.author:
+        messages.error(request, "You don't have permission to edit this blog post.")
+        return redirect('blog_post_detail', pk=blog_post.pk)
+
+    if request.method == 'POST':
+        form = BlogPostForm(request.POST, instance=blog_post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your Blog Post "{blog_post.title}" edited successfully')
+            return redirect('blog_post_detail', pk=blog_post.pk)
+        else:
+            messages.error(request, "Something went wrong. Please try again.")
+    else:
+        form = BlogPostForm(instance=blog_post)
+
+    return render(request, 'blogs/edit_blog.html', {'form': form, 'post': blog_post})

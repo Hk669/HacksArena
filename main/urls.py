@@ -8,7 +8,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name="logout"),
     path('login/', views.custom_login, name="login"),
     path('register/', views.register_page, name="register"),
-    path('profile/<str:pk>', views.user_page, name="profile"),
+    path('profile/<int:pk>', views.user_page, name="profile"),
     path('project-submission/<str:pk>/', views.project_submission, name="project_submission"),
     path('update-submission/<str:pk>/', views.update_submission, name="update_submission"),
     path('events/', views.search_events, name="search_events"),
@@ -21,4 +21,5 @@ urlpatterns = [
     path('blogpost/', views.create_blog, name='create_blog'),
     path('delete/<int:pk>/',views.delete_blog, name="delete_blog"),
     path('blog/<int:pk>/',views.blog_post_detail, name="blog_post_detail"),
+    path('blog/<int:pk>/edit', views.edit_blog, name="edit_blog"),
 ]

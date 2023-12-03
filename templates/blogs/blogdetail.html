@@ -28,22 +28,27 @@
     {% load social_share %}
     <a href = "{%url 'blog-home' %}"> <- Back to all Blogs </a>
     </br>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
     <h1>{{ post.title }}</h1>
     <ul>
-        
-            <div class="meta-links">
-                <li>{% post_to_twitter "i just published {{post.title}}. Check it out!" object_or_url "Post to Twitter" %}</li>
-                <li>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</li>
-                {% comment %} <li>{% copy_to_clipboard object_or_url "Copy to clipboard!" %}</li> {% endcomment %}
-            </div>
+         <div class="meta-links">
+            <li>{% post_to_twitter "i just published {{post.title}}. Check it out!" object_or_url "Post to Twitter" %}</li>
+            <li>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</li>
+        </div>
     </ul>
-    <p class="author"><strong>Author : </strong><a href="{% url 'profile' post.author.id %}">{{ post.author.name }}</a></p>
+    <p class="author"><strong>Author : </strong><a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a></p>
     <p class="published-date">Published on: {{ post.date_posted }}</p>
     <p class="post-content">{{ post.content | linebreaks | urlize}}</p>
     </br>
     {% if user == post.author %}
         <a href= "{% url 'delete_blog' post.pk %}" class="delete-blog-link">Delete Blog</a>
-
+        <a href="{% url 'edit_blog' post.pk %}" class="edit-blog-link">Edit Blog</a>
     {% endif %}
 
 {% endblock content %}
