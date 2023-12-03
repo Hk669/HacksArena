@@ -121,10 +121,9 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
-        "USER": "hrushi669",
-        # "PASSWORD": os.environ.get("DBPASSWORD"),
-        "PASSWORD": "hrushi@669",
-        "HOST": "hacksarena-db.postgres.database.azure.com",
+        "USER": os.environ.get('USER'),
+        "PASSWORD": os.environ.get("DBPASSWORD"),
+        "HOST": os.environ.get('HOST'),
         "PORT": "5432",
         "OPTIONS" : {
             "sslmode": "require"
