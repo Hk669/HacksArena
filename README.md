@@ -1,6 +1,6 @@
 # HacksArena - Event App
 
-HacksArena is an event management application designed to streamline the organization and participation in hackathons. Whether you are hosting a hackathon or looking to participate, HacksArena provides a centralized platform to manage events, connect with participants, and stay updated on upcoming hackathons.
+HacksArena is an event management application designed to streamline the organization and participation in hackathons. Whether you are hosting a hackathon or looking to participate, HacksArena provides a centralized platform to manage events, connect with participants, and stay updated on upcoming hackathons. the application is completely built on `Azure postgresSQL` with `Django`.
 
 ## Features
 
@@ -157,7 +157,6 @@ If you have any queries, encounter issues, or need assistance, feel free to reac
 
 ## Acknowledgments
 
-- This project uses the Django web framework and Djongo for MongoDB integration.
 - The project can be used both on sql and also mongoDB.
 
 ---
