@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     #share links
     'django_social_share',
 
+
+    'ckeditor',
+
     # for allauth
     'rest_framework',
     'django.contrib.sites',
@@ -60,6 +63,12 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware"
+]
+
+
+CORS_ALLOWED_ORIGINS = [
+    "https://hacksarena.azurewebsites.net",
+
 ]
 
 # account providers (google, github)
@@ -113,6 +122,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+    },
+}
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -158,7 +175,7 @@ DATABASES = {
 
 # Redis cache
 
-CACHE_TTL = 60 * 1500  # time cache exists
+# CACHE_TTL = 60 * 1500  ( time cache exists)
 
 # CACHES = {
 #     'default': {
@@ -212,7 +229,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Azure hosting

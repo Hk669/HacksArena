@@ -2,98 +2,93 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container">
-    <header>
-        {% comment %} {% load socialaccount %} {% endcomment %}
-    </header>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HacksArena - Your Coding Hub</title>
     <style>
+        header {
+            position:relative;
+            background-image: url("{% static 'Hackathon.png' %}");
+            background-size:cover;
+            color:#D0EADD;
+            text-align: center;
+            padding: 2em;
+            height:480px;
+        }
 
-    .event-cards {
-        display:flex;
-        flex-wrap:wrap;
-        justify-content: space-evenly;
+        header h1 {
+            position:absolute;
+            left:20px;
+            bottom:20px;
+            font-size:3em;
+        }
 
-    }
+        header p {
+            position:absolute;
+            left:20px;
+            bottom:20px;
+            font-size:1em;
+        }
 
-    .event-card {
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        margin: 10px;
-        padding: 10px;
-        width: 200px;
-        text-align: center;
-    }
-    
-    .event-avatar {
-        max-width: 100%;
-        max-height: 100px;
-        border-radius: 8px;
-    }
+        section {
+            padding: 3em;
+            text-align: left;
+        }
 
-    .event-card p {
-        font-weight: bold;
-        text-align:left;
+        section h2 {
+            left:20px;
+            color: #292b2c;
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
 
-    }
-    .register-button {
-        background-color: #000;
-        color: white;
-        padding: 4px 6px;
-        text-decoration: None;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+        section p {
+            font-size: 1.2em;
+            color: #555;
+        }
 
-    .search-form {
-        margin: 20px 0;
-        text-align: center;
-    }
+        footer {
+            background-color: #292b2c;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 
-    #search-form {
-        display: inline-block;
-    }
-    
-</style>
-    <section class="events">
-    <!-- Seacrh bar for home page events-->
-    <div class="search-form">
-        <form method="GET" action="{% url 'search_events' %}" id="search-form">
-            <input type="text" name="query" placeholder="Search...">
-            <input type="submit" value="Search">
-        </form>
-        
-        <script>
-            var timeout;
+</head>
+<body>
 
-            function submitForm() {
-                clearTimeout(timeout);
-                timeout = setTimeout(function () {
-                    document.getElementById('search-form').submit();
-                }, 700); 
-            }
-        </script>
-    </div>
-    <div>
-        <h2>Overview of the events</h2>
-        <ul>
-            {% if events %}
-            <div class="event-cards">
-                {% for event in events %}
-                <div class="event-card">
-                <img class="event-avatar" src="{{ event.avatar.url }}" alt="Event Avatar" style="max-width: 150px; max-height: 150px;">
-                    <h4>{{ event.title }}</h4>
-                    <p>{{ event.description | linebreaks | truncatewords:10 }}</p>
-                    <a href="{% url 'event_page' pk=event.id %}" class="register-button">Register</a>
-                </div>
-                {% endfor %}
-            {% else %}
-                <h3>Nothing to explore</h3>
-                <a href="{% url 'home' %}">
-                    <h3>Explore 💁‍♂️</h3>
-                </a>
-            {% endif %}
-        </ul>
-    </div>
-</div>
+<header>
+    <h1>Welcome to HacksArena</h1>
+    <p>Your Gateway to Limitless Innovation!</p>
+</header>
+
+<section>
+    <h2>Discover and Join Hackathons</h2>
+    <p>Explore a world of hackathons covering various themes and industries. Join the coding revolution and be part of something extraordinary!</p>
+    <a href="{% url 'search_events' %}">Explore</a>
+</section>
+
+<section>
+    <h2>Connect and Collaborate</h2>
+    <p>Forge meaningful connections with fellow participants, mentors, and industry experts. Team up, brainstorm, and turn your visions into reality.</p>
+    <a href="{% url 'search_profile' %}">Connect</a>
+</section>
+
+<section>
+    <h2>Showcase Your Skills</h2>
+    <p>HacksArena provides a stage for you to showcase your writing brilliance. Elevate your profile, gain exposure, and open doors to exciting opportunities.</p>
+    <a href="{% url 'blog-home' %}">Checkout blogs</a>
+</section>
+
+<section>
+    <h2>Why HacksArena?</h2>
+    <p>HacksArena is more than an app; it's a catalyst for your coding journey. Register now and be part of the coding revolution. Unleash your potential, one hack at a time!</p>
+</section>
 
 {% endblock content %}

@@ -44,7 +44,7 @@
     </ul>
     <p class="author"><strong>Author : </strong><a href="{% url 'profile' post.author.id %}">{{ post.author.username }}</a></p>
     <p class="published-date">Published on: {{ post.date_posted }}</p>
-    <p class="post-content">{{ post.content | linebreaks | urlize}}</p>
+    <p class="post-content">{{ post.content | safe }}</p>
     </br>
     {% if user == post.author %}
         <a href= "{% url 'delete_blog' post.pk %}" class="delete-blog-link">Delete Blog</a>

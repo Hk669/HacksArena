@@ -46,8 +46,18 @@
     #search-form {
         display: inline-block;
     }
+
+    h2 {
+        text-align:center;
+    }
+
 </style>
 
+<h1>Unleash Your Potential at Upcoming Hackathons</h1>
+<p>Get ready to dive into a world of innovation, collaboration, and endless possibilities. Join us at these upcoming hackathons and let your creativity flourish!</p>
+
+<p>Ready to embark on a coding adventure? Explore these events and let your innovation shine.
+</br> Register now, and be part of a community that thrives on pushing boundaries and redefining what's possible!</p>
 <div class="search-form">
     <form method="GET" action="{% url 'search_events' %}" id="search-form">
         <input type="text" name="query" placeholder="Search...">
@@ -66,7 +76,6 @@
     </script>
 </div>
 <div>
-    <h2>Events</h2>
     <ul>
         {% if events %}
             <div class="event-cards">

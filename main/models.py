@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from ckeditor.fields import RichTextField
 
 
 class User(AbstractUser):
@@ -50,7 +51,7 @@ class Submission(models.Model):
 
 class Posts(models.Model):
     title = models.CharField(max_length=255, null=False, blank=False)
-    content = models.TextField(null=False)
+    content = RichTextField(null=False)
     # image = models.ImageField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     date_posted = models.DateTimeField(auto_now_add=True)

@@ -24,14 +24,37 @@
     margin-left: 20px;
   }
 
+  #search-form {
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+  }
+
 </style>
 
+
+<div class="search-form">
+  <form method="GET" action="{% url 'blog-home' %}" id="search-form">
+      <input type="text" name="query" placeholder="Search...">
+      <input type="submit" value="Search">
+  </form>
+  
+  <script>
+      var timeout;
+
+      function submitForm() {
+          clearTimeout(timeout);
+          timeout = setTimeout(function () {
+              document.getElementById('search-form').submit();
+          }, 700); 
+      }
+  </script>
 
     <a href="{% url 'create_blog' %}">Write a Blog</a>
 
     {% load social_share %}
 
-    {% for post in posts %}
+    {% for post in blogs %}
         <article class="blog-item">
           <img class="blog-img" src="{{ post.author.avatar.url }}" alt="Blog-Image">
           <div class="media-body ml-3">
@@ -40,7 +63,7 @@
               <small class="blog-date">{{ post.date_posted|date:'F d Y' }}</small>
             </div>
             <h2><a class="blog-title" href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p class="blog-short-desc">{{ post.content | linebreaks | truncatewords:15 }}</p>
+            <p class="blog-short-desc">{{ post.content | truncatewords:15 | safe }}</p>
           </div>
         </article>
     {% endfor %}

@@ -33,9 +33,9 @@ def get_or_set_cache(request, cache_key, timeout, callback):
     return data
 
 # @cache_page(60 * 15)  # Cache for 15 minutes 
-def search_events(request):
-    cache_key = cache_key_func(request)
-    return get_or_set_cache(request, cache_key, 60 * 15, lambda: _search_events(request))
+# def search_events(request):
+#     cache_key = cache_key_func(request)
+#     return get_or_set_cache(request, cache_key, 60 * 15, lambda: _search_events(request))
 
 # @cache_page(60 * 15)  
 # def search_profile(request):
@@ -74,7 +74,7 @@ def profile(request, pk):
     return render(request, 'account.html',context)
 
 
-def _search_events(request):
+def search_events(request):
     events = Event.objects.all()
     form = SearchForm(request.GET)
     if form.is_valid():
@@ -250,6 +250,17 @@ def edit_blog(request, pk):
 
     return render(request, 'blogs/edit_blog.html', {'form': form, 'post': blog_post})
 
+def search_blogs(request):
+    blogs = Posts.objects.all()
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        blogs = blogs.filter(Q(title__icontains=query))
+
+    return render(request, 'blogs/bloghome.html', {'blogs':blogs, 'form':form})
+
+
+# error handilng
 def handling_404(request, exception):
     return render(request, '404.html', status=404)
 

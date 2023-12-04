@@ -4,8 +4,9 @@
 
 <h1>Create a New Blog Post</h1>
   
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
+  {{ form.media }}
   {{ form.as_p }} 
   <button type="submit">Create Blog Post</button>
 </form>

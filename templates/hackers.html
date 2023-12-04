@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <style>
 
@@ -54,7 +54,30 @@
         display: inline-block;
     }
     
+    h3 {
+        position:absolute;
+        left:20px;
+        bottom:20px;
+        font-size:1em;
+        color:#fff;
+
+    }
+    header {
+        position:relative;
+        background-image: url("{% static 'connect.png' %}");
+        background-size:cover;
+        color: #fff;
+        padding: 2em;
+        height:480px;
+        text-align:left;
+    }
+
 </style>
+<header>
+<h3>Dive into a realm of <strong>collaborative brilliance!</strong> Connect with fellow tech enthusiasts,
+    <br> form teams, and unleash your coding genius on projects that matter.<br>
+     HacksArena is your gateway to networking with industry leaders, showcasing your skills, and accelerating your tech career.</h3>
+</header>
 
 <div class="search-form">
     <form method="GET" action="{% url 'search_profile' %}" id="search-form">
@@ -73,14 +96,14 @@
         }
     </script>
     
-    <h2>Users</h2>
+    {% comment %} <h2>Hackers</h2> {% endcomment %}
     <ul>
         <div class="user-cards">
             {% if users %}
                 {% for user in users %}
                 <div class="user-card">
                     <img class="user-avatar" src="{{ user.avatar.url }}" alt="Avatar">
-                    <h3>{{ user.username }}</h3>
+                    <h4>{{ user.username }}</h4>
                     <a href="{% url 'profile' pk=user.id %}" class="view-button">View Profile</a>
                 </div>
                 {% endfor %}
