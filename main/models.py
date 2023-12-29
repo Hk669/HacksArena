@@ -64,4 +64,4 @@ class Userpoints(models.Model):
     points = models.IntegerField(default=50)
 
     def __str__(self):
-        return f"{self.points}🌟 "
+        return f"{self.user} - {self.points}🌟 "

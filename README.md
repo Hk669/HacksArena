@@ -6,10 +6,19 @@ HacksArena is an event management application designed to streamline the organiz
 #### Points System 🌟
 - Now, every action in HacksArena comes with a reward:
 
--- Share your wisdom with a blog? `Earn 35🌟`
--- Log in and stay connected? `Grab 10🌟`
--- Register for an event? `Score a whopping 40🌟`
--- Submit a project? `Get ready for 100🌟`
+   - Share your wisdom with a blog? `Earn 35🌟`
+   - Log in and stay connected? `Grab 10🌟`
+   - Register for an event? `Score a whopping 40🌟`
+   - Submit a project? `Get ready for 100🌟`
+
+#### Blog CKeditor
+   - for more detailing of the blog content
+   - all the tex features are updated
+
+#### Social Media Share
+   - `Twitter`
+   - `Whatsapp`
+
 
 ## Features
 
@@ -30,24 +39,24 @@ HacksArena is an event management application designed to streamline the organiz
   - Search functionality to find and connect with other users.
 
 - **Blog Management:**
- - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
- - their experiences, insights, and tips related to hackathons.
+   - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
+   - their experiences, insights, and tips related to hackathons.
 
 - **Implemented redis cache**
- - cache for the blog posts
- - events information
+   - cache for the blog posts
+   - events information
 
 - **Search Functionality:**
-  - Search for hackathons based on titles and descriptions.
-  - Search for users based on usernames and names.
+   - Search for hackathons based on titles and descriptions.
+   - Search for users based on usernames and names.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Python (version 3.11.5 recommended)
-- Django (version 4.1.13 recommended)
-- Djongo (for MongoDB integration)
+- `Python` (version 3.11.5 recommended)
+- `Django` (version 4.1.13 recommended)
+- `Djongo` (for MongoDB integration)
 
 ### Installation
 
@@ -111,6 +120,7 @@ redis-cli
 
 5. Access the application at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
+
 ## Usage
 
 ![Account](images/userprofile.png)
@@ -121,6 +131,8 @@ redis-cli
 ![Points](images/points%20feature.png)
    **Points System**
    - Points are displayed on the User profile
+
+---
 
 ![Login Page](images/image-4.png)
 1. **User Registration:**
@@ -151,8 +163,8 @@ redis-cli
 
 ![Blogs](images/blogs.png)
 6. **Blog Management:**
- - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
- - their experiences, insights, and tips related to hackathons.
+   - The code exhibits the capabilities of creating, reading, updating, and deleting blog posts. This enables users to share 
+   - their experiences, insights, and tips related to hackathons.
 
 ---
 
