@@ -58,3 +58,10 @@ class Posts(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Userpoints(models.Model):
+    user = models.OneToOneField(User,on_delete = models.CASCADE)
+    points = models.IntegerField(default=50)
+
+    def __str__(self):
+        return f"{self.points}🌟 "

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import User, Event, UserProfile
+from .models import User, Event, UserProfile, Userpoints
 from django.contrib.auth import logout
 from django.http import HttpResponseNotFound
 from django.db.models import Q
@@ -19,18 +19,18 @@ from django.utils.cache import get_cache_key
 
 # CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-def cache_key_func(request, *args, **kwargs):
-    form = SearchForm(request.GET)
-    if form.is_valid():
-        query = form.cleaned_data['query']
-        return f"{request.path}:{query}"
+# def cache_key_func(request, *args, **kwargs):
+#     form = SearchForm(request.GET)
+#     if form.is_valid():
+#         query = form.cleaned_data['query']
+#         return f"{request.path}:{query}"
 
-def get_or_set_cache(request, cache_key, timeout, callback):
-    data = cache.get(cache_key)
-    if data is None:
-        data = callback()
-        cache.set(cache_key, data, timeout)
-    return data
+# def get_or_set_cache(request, cache_key, timeout, callback):
+#     data = cache.get(cache_key)
+#     if data is None:
+#         data = callback()
+#         cache.set(cache_key, data, timeout)
+#     return data
 
 # @cache_page(60 * 15)  # Cache for 15 minutes 
 # def search_events(request):
@@ -54,7 +54,9 @@ def home(request):
 
 def user_page(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    user_points, created = Userpoints.objects.get_or_create(user=user)
+
+    context = {'user': user, 'user_points':user_points}
     return render(request, 'profile.html', context)
 
 
@@ -63,6 +65,8 @@ def profile(request, pk):
         return redirect('home')
     
     user = User.objects.get(id=pk)
+    user_points, created = Userpoints.objects.get_or_create(user=user)
+
     form = UserUpdateForm(instance=user)
     if request.method == "POST":
         form = UserUpdateForm(request.POST, request.FILES, instance=user)
@@ -70,7 +74,7 @@ def profile(request, pk):
             form.save()
             return redirect('home')
                           
-    context = {'user':user, 'form':form}
+    context = {'user':user, 'form':form, 'user_points':user_points}
     return render(request, 'account.html',context)
 
 
@@ -110,6 +114,13 @@ def event_conf(request, pk):
 
     if request.method == 'POST':
         event.participants.add(request.user)
+
+        user_points , created = Userpoints.objects.get_or_create(user=request.user)
+        user_points.points += 40
+        user_points.save()
+        messages.success(request, '40 points earned 🌟')
+
+
         return redirect('event_page', pk=event.id)
     
     return render(request, 'event_conf.html', {'event':event})
@@ -127,6 +138,12 @@ def project_submission(request, pk):
             submission.participant = request.user
             submission.event = event
             submission.save()
+
+            user_points, created = Userpoints.objects.get_or_create(user=request.user)
+            user_points.points += 100
+            user_points.save()
+            messages.success(request, '100 points earned 🌟')
+
             
             return redirect('event_page', pk=pk)
 
@@ -205,6 +222,12 @@ def create_blog(request):
             new_post = form.save(commit=False)
             new_post.author = request.user
             new_post.save()
+
+            user_points, created = Userpoints.objects.get_or_create(user=request.user)
+            user_points.points += 35
+            user_points.save()
+            messages.success(request, '35 points earned 🌟')
+
             return redirect('blog-home')
     else:
         form = BlogPostForm()
