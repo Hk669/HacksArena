@@ -2,6 +2,15 @@
 
 HacksArena is an event management application designed to streamline the organization and participation in hackathons. Whether you are hosting a hackathon or looking to participate, HacksArena provides a centralized platform to manage events, connect with participants, and stay updated on upcoming hackathons. the application is completely built on `Azure postgresSQL` with `Django`.
 
+**New feature**
+#### Points System 🌟
+- Now, every action in HacksArena comes with a reward:
+
+-- Share your wisdom with a blog? `Earn 35🌟`
+-- Log in and stay connected? `Grab 10🌟`
+-- Register for an event? `Score a whopping 40🌟`
+-- Submit a project? `Get ready for 100🌟`
+
 ## Features
 
 - **User Registration and Authentication:**
@@ -108,6 +117,10 @@ redis-cli
    **User Profile**
    - Edit the user profile 
 ---
+
+![Points](images/points%20feature.png)
+   **Points System**
+   - Points are displayed on the User profile
 
 ![Login Page](images/image-4.png)
 1. **User Registration:**
