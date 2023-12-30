@@ -44,7 +44,7 @@
     {% if user.events.exists %}
         <h2>Events paritcipated by {{user.name}}</h2>
         {% for event in user.events.all %}
-            <p><a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a></p>
+            <p><a href="{% url 'event_page' slug=event.slug %}">{{event.title}}</a></p>
             
         {% endfor %}
 
@@ -60,7 +60,7 @@
         <ul>
             {% for sub in user.submission_set.all %}
                 <li>
-                    <a href="{% url 'update_submission' pk=sub.id %}">{{ sub.event.title }}</a>
+                    <a href="{% url 'update_submission' slug=sub.slug %}">{{ sub.event.title }}</a>
                     {% comment %} - {{ sub.details|default:"No details available" }} {% endcomment %}
                 </li>
             {% endfor %}

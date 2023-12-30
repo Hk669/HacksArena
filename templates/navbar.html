@@ -24,7 +24,7 @@
                 <a href="{% url 'blog-home' %}">Blogs</a>
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'logout' %}">Logout</a>
-                    <a href="{% url 'account' user.id %}">Account</a>
+                    <a href="{% url 'account' user.slug %}">Account</a>
                 {% else %}
                     <a href="{% url 'login' %}">Login</a>
                     <a href="{% url 'register' %}">SignUp</a>

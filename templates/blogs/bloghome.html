@@ -59,10 +59,10 @@
           <img class="blog-img" src="{{ post.author.avatar.url }}" alt="Blog-Image">
           <div class="media-body ml-3">
             <div class="article-metadata">
-              <a class="blog-author" href="{% url 'profile' post.author.id %}">{{ post.author.name }}</a>
+              <a class="blog-author" href="{% url 'profile' post.author.slug %}">{{ post.author.name }}</a>
               <small class="blog-date">{{ post.date_posted|date:'F d Y' }}</small>
             </div>
-            <h2><a class="blog-title" href="{% url 'blog_post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <h2><a class="blog-title" href="{% url 'blog_post_detail' post.slug %}">{{ post.title }}</a></h2>
             <p class="blog-short-desc">{{ post.content | truncatewords:15 | safe }}</p>
           </div>
         </article>

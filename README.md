@@ -2,6 +2,8 @@
 
 HacksArena is an event management application designed to streamline the organization and participation in hackathons. Whether you are hosting a hackathon or looking to participate, HacksArena provides a centralized platform to manage events, connect with participants, and stay updated on upcoming hackathons. the application is completely built on `Azure postgresSQL` with `Django`.
 
+   - Star the repo if found useful 🌟
+
 **New feature**
 #### Points System 🌟
 - Now, every action in HacksArena comes with a reward:
@@ -19,6 +21,8 @@ HacksArena is an event management application designed to streamline the organiz
    - `Twitter`
    - `Whatsapp`
 
+#### Slug Field
+   - added the slug for the url to avoid the ids
 
 ## Features
 

@@ -52,19 +52,19 @@ def home(request):
     return render(request, 'home.html', context)
 
 
-def user_page(request, pk):
-    user = User.objects.get(id=pk)
+def user_page(request, slug):
+    user = get_object_or_404(User,slug=slug)
     user_points, created = Userpoints.objects.get_or_create(user=user)
 
     context = {'user': user, 'user_points':user_points}
     return render(request, 'profile.html', context)
 
 
-def profile(request, pk):
-    if request.user.id != int(pk):
+def profile(request, slug):
+    if request.user.username.lower() != slug:
         return redirect('home')
     
-    user = User.objects.get(id=pk)
+    user = User.objects.filter(username=slug).first()
     user_points, created = Userpoints.objects.get_or_create(user=user)
 
     form = UserUpdateForm(instance=user)
@@ -102,15 +102,15 @@ def search_profile(request):
 
 # event views
 # @cache_page(60*150)
-def event_page(request, pk):
-    event = Event.objects.get(id=pk)
+def event_page(request, slug):
+    event = get_object_or_404(Event,slug=slug)
     now = datetime.now()
     context = {'event':event, 'now':now }
     return render(request, 'event.html', context)
 
 @login_required()
-def event_conf(request, pk):
-    event = Event.objects.get(id=pk)
+def event_conf(request, slug):
+    event = get_object_or_404(Event,slug=slug)
 
     if request.method == 'POST':
         event.participants.add(request.user)
@@ -121,13 +121,13 @@ def event_conf(request, pk):
         messages.success(request, '40 points earned 🌟')
 
 
-        return redirect('event_page', pk=event.id)
+        return redirect('event_page', slug=slug)
     
     return render(request, 'event_conf.html', {'event':event})
 
 @login_required()
-def project_submission(request, pk):
-    event = Event.objects.get(id=pk)
+def project_submission(request, slug):
+    event = get_object_or_404(Event,slug=slug)
 
     form = SubmissionForm()
 
@@ -145,14 +145,14 @@ def project_submission(request, pk):
             messages.success(request, '100 points earned 🌟')
 
             
-            return redirect('event_page', pk=pk)
+            return redirect('event_page', slug=event.slug)
 
     context = {'event': event, 'form': form}
     return render(request, 'submission.html', context)
 
 @login_required()
-def update_submission(request, pk):
-    submission = Submission.objects.get(id=pk)
+def update_submission(request, slug):
+    submission = get_object_or_404(Submission,slug=slug)
 
     if request.user != submission.participant:
         return HttpResponse("You're not allowed :)")
@@ -235,8 +235,8 @@ def create_blog(request):
 
 
 @login_required
-def delete_blog(request, pk):
-    blog_post = get_object_or_404(Posts,pk=pk)
+def delete_blog(request, slug):
+    blog_post = get_object_or_404(Posts, slug=slug)
 
     if request.user == blog_post.author:
         if request.method == 'POST':
@@ -248,24 +248,24 @@ def delete_blog(request, pk):
         return render(request, 'blogs/blogdetail.html', {'post': blog_post})
 
 # @cache_page(60*150)
-def blog_post_detail(request, pk):
-    post = get_object_or_404(Posts, pk=pk)
+def blog_post_detail(request, slug):
+    post = get_object_or_404(Posts, slug=slug)
     return render(request, 'blogs/blogdetail.html', {'post':post})
 
 @login_required
-def edit_blog(request, pk):
-    blog_post = get_object_or_404(Posts, pk=pk)
+def edit_blog(request, slug):
+    blog_post = get_object_or_404(Posts, slug=slug)
 
     if request.user != blog_post.author:
         messages.error(request, "You don't have permission to edit this blog post.")
-        return redirect('blog_post_detail', pk=blog_post.pk)
+        return redirect('blog_post_detail', slug=blog_post.slug)
 
     if request.method == 'POST':
         form = BlogPostForm(request.POST, instance=blog_post)
         if form.is_valid():
             form.save()
             messages.success(request, f'Your Blog Post "{blog_post.title}" edited successfully')
-            return redirect('blog_post_detail', pk=blog_post.pk)
+            return redirect('blog_post_detail', slug=blog_post.slug)
         else:
             messages.error(request, "Something went wrong. Please try again.")
     else:

@@ -84,7 +84,7 @@
                 <img class="event-avatar" src="{{ event.avatar.url }}" alt="Event Avatar" style="max-width: 150px; max-height: 150px;">
                     <h4>{{ event.title }}</h4>
                     <p>{{ event.description | linebreaks | truncatewords:10 }}</p>
-                    <a href="{% url 'event_page' pk=event.id %}" class="register-button">Register</a>
+                    <a href="{% url 'event_page' slug=event.slug %}" class="register-button">Register</a>
                 </div>
                 {% endfor %}
             </div>

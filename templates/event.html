@@ -21,21 +21,21 @@
         {% if request.user in event.participants.all %}
         <h4 style="color:red;">You've already registered for the event</h4>
         {% else %}
-        <a href="{% url 'event_conf' event.id %}" class="event-reg-link">Register for the Event</a>
+        <a href="{% url 'event_conf' event.slug %}" class="event-reg-link">Register for the Event</a>
         {% endif %}
 
         {% if user.submission_set.exists %}
         <ul>
             {% for sub in user.submission_set.all %}
                 <li>
-                    <a href="{% url 'update_submission' pk=sub.id %}">Update the Submission</a>
+                    <a href="{% url 'update_submission' slug=sub.slug %}">Update the Submission</a>
                 </li>
             {% endfor %}
         </ul>
         {% else %}
             {% if request.user in event.participants.all %}
                 {% if event.start_date < now and event.end_date > now %}
-                    <a href="{% url 'project_submission' pk=event.id %}">Project Submission</a>
+                    <a href="{% url 'project_submission' slug=event.slug %}">Project Submission</a>
                 {% elif event.start_date > now %}
                     <h3>Thanks for registration. Please wait till the event start: {{event.start_date}}</h3>
                 {% endif %}

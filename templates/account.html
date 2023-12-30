@@ -56,7 +56,7 @@
         <ul>
             {% for blog in user.posts.all %}
                 <li>
-                    <a href="{% url 'blog_post_detail' pk=blog.pk %}">{{ blog.title }}</a>
+                    <a href="{% url 'blog_post_detail' slug=blog.slug %}">{{ blog.title }}</a>
                 </li>
                 {% endfor %}
         </ul>
@@ -73,7 +73,7 @@
         {% for event in user.events.all %}
             <ul>
                 <li>
-                    <a href="{% url 'event_page' pk=event.pk %}">{{event.title}}</a>
+                    <a href="{% url 'event_page' slug=event.slug %}">{{event.title}}</a>
                 </li>
             </ul>
         {% endfor %}
@@ -90,7 +90,7 @@
         <ul>
             {% for sub in user.submission_set.all %}
                 <li>
-                    <a href="{% url 'update_submission' pk=sub.id %}">{{ sub.event.title }}</a>
+                    <a href="{% url 'update_submission' slug=sub.slug %}">{{ sub.event.title }}</a>
                     {% comment %} - {{ sub.details|default:"No details available" }} {% endcomment %}
                 </li>
             {% endfor %}

@@ -104,7 +104,7 @@
                 <div class="user-card">
                     <img class="user-avatar" src="{{ user.avatar.url }}" alt="Avatar">
                     <h4>{{ user.username }}</h4>
-                    <a href="{% url 'profile' pk=user.id %}" class="view-button">View Profile</a>
+                    <a href="{% url 'profile' slug=user.slug %}" class="view-button">View Profile</a>
                 </div>
                 {% endfor %}
             {% else %}
