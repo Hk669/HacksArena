@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1']
+ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','0.0.0.0']
 
 AUTH_USER_MODEL = 'main.User'
 
