@@ -68,7 +68,7 @@ HacksArena is an event management application designed to streamline the organiz
 
    ```bash
    git clone https://github.com/Hk669/HacksArena.git
-   cd HackArena
+   cd HacksArena
    ```
 
 2. Install dependencies:
@@ -123,6 +123,54 @@ redis-cli
    ```
 
 5. Access the application at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+## Run on DOCKER
+
+- **Create a file** `Dockerfile`
+
+```bash
+   FROM python:3
+
+   ENV PYTHONUNBUFFERED 1
+
+   RUN mkdir /hacksarena
+   WORKDIR /hacksarena
+   COPY . /hacksarena/
+   RUN pip install -r requirements.txt
+
+```
+
+- Add to `docker-compose.yml` **to Build the Image**
+
+```bash
+   version: '3.9'
+
+   services:
+   web:
+      build: .
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+         - .:/hacksarena
+      ports:
+         - "8000:8000"
+```
+
+- Build the Docker Image:
+
+```bash
+   # Builds the Docker Image
+   docker-compose build
+
+   # Run migrations
+   docker-compose run web python manage.py migrate
+
+   # Start the Docker Container
+   docker-compose up
+```
+
+After executing these commands, your HacksArena application will be `containerized`, and the development server will start. Access the application at [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
+
+   > Note: Containerization allows you to run the application in a consistent and isolated environment, ensuring seamless deployment.
 
 
 ## Usage
