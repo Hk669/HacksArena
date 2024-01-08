@@ -13,7 +13,7 @@ DEBUG = False
 # DEBUG = True
 
 
-ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','0.0.0.0']
+ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','eventapp-f3cv.onrender.com','event.hrushikesh.xyz']
 
 AUTH_USER_MODEL = 'main.User'
 
@@ -67,7 +67,7 @@ MIDDLEWARE = [
 
 
 # CORS_ALLOWED_ORIGINS = [
-#     "https://hacksarena.azurewebsites.net",
+     # "https://hacksarena.azurewebsites.net",
 
 # ]
 
@@ -233,8 +233,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Azure hosting
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 MEDIA_URL = '/media/'
