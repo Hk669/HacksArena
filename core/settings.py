@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','0.0.0.0']
+ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','0.0.0.0','.onrender.com']
 
 AUTH_USER_MODEL = 'main.User'
 
@@ -66,10 +66,10 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ALLOWED_ORIGINS = [
-    "https://hacksarena.azurewebsites.net",
+# CORS_ALLOWED_ORIGINS = [
+#     "https://hacksarena.azurewebsites.net",
 
-]
+# ]
 
 # account providers (google, github)
 SOCIALACCOUNT_PROVIDERS = {
@@ -97,7 +97,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_CALLBACK_URL = 'https://hacksarena.azurewebsites.net/accounts/google/login/callback/'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_CALLBACK_URL = 'https://hacksarena.azurewebsites.net/accounts/google/login/callback/'
 
 
 ROOT_URLCONF = "core.urls"
@@ -253,4 +253,4 @@ LOGIN_URL = '/login/'
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_DOMAIN = 'hacksarena.azurewebsites.net'
+# CSRF_COOKIE_DOMAIN = 'hacksarena.azurewebsites.net'
