@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import User, Event, UserProfile, Userpoints
+from .models import User, Event, Userpoints
 from django.contrib.auth import logout
 from django.http import HttpResponseNotFound
 from django.db.models import Q
@@ -65,6 +65,9 @@ def profile(request, slug):
         return redirect('home')
     
     user = User.objects.filter(username=slug).first()
+    if not user:
+        return redirect('home')
+    
     user_points, created = Userpoints.objects.get_or_create(user=user)
 
     form = UserUpdateForm(instance=user)

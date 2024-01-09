@@ -10,7 +10,7 @@ class User(AbstractUser):
     bio = models.TextField(null=True, blank=True)
     slug = models.SlugField(max_length=50,null=True,blank=True)
     hackathon_participant = models.BooleanField(default=True, null=True)
-    avatar = models.ImageField(default='default.png')
+    avatar = models.ImageField(default='default.png', upload_to='avatars/')
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -28,15 +28,15 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+# class UserProfile(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
-    def event_participated(self):
-        return self.user.event_set.all()
+#     def event_participated(self):
+#         return self.user.event_set.all()
 
 class Event(models.Model):
-    avatar = models.ImageField(default='default1.png')
+    avatar = models.ImageField(default='default1.png', upload_to='events/')
     title = models.CharField(max_length=200, null=False)
     slug = models.SlugField(max_length=50,blank=True, null=True)
     description = models.TextField(null=False, blank=False)
