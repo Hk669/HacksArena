@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','localhost','0.0.0.0','.onrender.com']
+ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','.onrender.com','event.hrushikesh.xyz']
 
 AUTH_USER_MODEL = 'main.User'
 
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     #share links
     'django_social_share',
 
-
+    #blog editor
     'ckeditor',
 
     # for allauth
@@ -158,37 +158,22 @@ DATABASES = {
 # }
 
 
-# using MongoDB server instead of sqlite
-
-# DATABASES = {
-#     'default' : {
-#         'ENGINE' : 'djongo',
-#         'NAME' : os.environ.get('MONGO_NAME'),
-#         "CLIENT" : {
-#             'host' : os.environ.get('MONGO_host'),
-#             'username' : os.environ.get('MONGO_USER'),
-#             'password' : os.environ.get('MONGO_PASS'),
-#         }
-#     }
-# }
-
 
 # Redis cache
 
-# CACHE_TTL = 60 * 1500  ( time cache exists)
+CACHE_TTL = 60 * 1500  #( time cache exists)
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://127.0.0.1:6379/1',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#             'PASSWORD' : 'hrushi@669',
-#         },
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'rediss://red-cmeloced3nmc739acq0g:dZuiEq9XR5iA6waXKsW597CxpeLAdsdr@oregon-redis.render.com:6379',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
         
-#         'TIMEOUT': 300,
-#     }
-# }
+        'TIMEOUT': 300,
+    }
+}
 
 # Set your Redis password as an environment variable
 # REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
@@ -229,16 +214,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = "static/"
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Azure hosting
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -256,19 +236,19 @@ CSRF_COOKIE_SECURE = True
 # CSRF_COOKIE_DOMAIN = 'hacksarena.azurewebsites.net'
 
 
-#s3 buckets for images upload
-AWS_ACCESS_KEY_ID = 'AKIAXXAB2XCTBVWLY7QV'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'assests.hacksarena'
+# s3 buckets for images upload
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = 'us-east-1'  
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
 # For serving static files directly from S3
-AWS_S3_URL_PROTOCOL = 'https'
 AWS_S3_USE_SSL = True
 AWS_S3_VERIFY = True
-STATIC_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/static/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_URL = "https://assests.hacksarena.s3.amazonaws.com/"
 
-MEDIA_URL = f'{AWS_S3_URL_PROTOCOL}://{AWS_S3_CUSTOM_DOMAIN}/media/'
+STATIC_URL = f"{AWS_S3_URL}static/"
+MEDIA_URL = f"{AWS_S3_URL}media/"
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
