@@ -17,7 +17,7 @@ from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from django.utils.cache import get_cache_key
 
-CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+# CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 # def cache_key_func(request, *args, **kwargs):
 #     form = SearchForm(request.GET)
@@ -80,7 +80,7 @@ def profile(request, slug):
     context = {'user':user, 'form':form, 'user_points':user_points}
     return render(request, 'account.html',context)
 
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def search_events(request):
     events = Event.objects.all()
     form = SearchForm(request.GET)
@@ -91,7 +91,7 @@ def search_events(request):
     context = {'events': events, 'form': form}
     return render(request, 'allevents.html', context)
 
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def search_profile(request):
     users = User.objects.filter(hackathon_participant=True)
     form = SearchForm(request.GET)
@@ -104,7 +104,7 @@ def search_profile(request):
 
 
 # event views
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def event_page(request, slug):
     event = get_object_or_404(Event,slug=slug)
     now = datetime.now()
@@ -211,7 +211,7 @@ def github_login(request):
 
 #blog posts
 
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def blog_home(request):
     posts = Posts.objects.all()
     return render(request, "blogs/bloghome.html", {'posts': posts})
@@ -250,7 +250,7 @@ def delete_blog(request, slug):
     else:
         return render(request, 'blogs/blogdetail.html', {'post': blog_post})
 
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def blog_post_detail(request, slug):
     post = get_object_or_404(Posts, slug=slug)
     return render(request, 'blogs/blogdetail.html', {'post':post})
@@ -276,7 +276,7 @@ def edit_blog(request, slug):
 
     return render(request, 'blogs/edit_blog.html', {'form': form, 'post': blog_post})
 
-@cache_page(CACHE_TTL)
+# @cache_page(CACHE_TTL)
 def search_blogs(request):
     blogs = Posts.objects.all()
     form = SearchForm(request.GET)

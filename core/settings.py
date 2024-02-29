@@ -161,19 +161,19 @@ DATABASES = {
 
 # Redis cache
 
-CACHE_TTL = 60 * 1500  #( time cache exists)
+# CACHE_TTL = 60 * 1500  #( time cache exists)
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'rediss://red-cmeloced3nmc739acq0g:dZuiEq9XR5iA6waXKsW597CxpeLAdsdr@oregon-redis.render.com:6379',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        },
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': 'rediss://red-cmeloced3nmc739acq0g:dZuiEq9XR5iA6waXKsW597CxpeLAdsdr@oregon-redis.render.com:6379',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         },
         
-        'TIMEOUT': 300,
-    }
-}
+#         'TIMEOUT': 300,
+#     }
+# }
 
 # Set your Redis password as an environment variable
 # REDIS_PASSWORD = os.environ.get('REDIS_PASSWORD')
