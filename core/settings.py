@@ -244,7 +244,7 @@ AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 # For serving static files directly from S3
 AWS_S3_USE_SSL = True
 AWS_S3_VERIFY = True
-AWS_S3_URL = "https://assests.hacksarena.s3.amazonaws.com/"
+AWS_S3_URL = "https://assets.hacksarena.s3.amazonaws.com/"
 
 STATIC_URL = f"{AWS_S3_URL}static/"
 MEDIA_URL = f"{AWS_S3_URL}media/"
