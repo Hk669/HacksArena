@@ -166,7 +166,7 @@ CACHE_TTL = 20 * 1500  #( time cache exists)
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'rediss://red-cmeloced3nmc739acq0g:dZuiEq9XR5iA6waXKsW597CxpeLAdsdr@oregon-redis.render.com:6379',
+        'LOCATION': os.getenv('REDIS_URI'),
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },

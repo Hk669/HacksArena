@@ -19,18 +19,18 @@ from django.utils.cache import get_cache_key
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
-# def cache_key_func(request, *args, **kwargs):
-#     form = SearchForm(request.GET)
-#     if form.is_valid():
-#         query = form.cleaned_data['query']
-#         return f"{request.path}:{query}"
+def cache_key_func(request, *args, **kwargs):
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        return f"{request.path}:{query}"
 
-# def get_or_set_cache(request, cache_key, timeout, callback):
-#     data = cache.get(cache_key)
-#     if data is None:
-#         data = callback()
-#         cache.set(cache_key, data, timeout)
-#     return data
+def get_or_set_cache(request, cache_key, timeout, callback):
+    data = cache.get(cache_key)
+    if data is None:
+        data = callback()
+        cache.set(cache_key, data, timeout)
+    return data
 
 # @cache_page(60 * 15)  # Cache for 15 minutes 
 # def search_events(request):
@@ -45,6 +45,7 @@ CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 # no login views
+@cache_page(CACHE_TTL)
 def home(request):
     users = User.objects.filter(hackathon_participant=True)
     events = Event.objects.all()
@@ -52,6 +53,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 
+@cache_page(CACHE_TTL)
 def user_page(request, slug):
     user = get_object_or_404(User,slug=slug)
     user_points, created = Userpoints.objects.get_or_create(user=user)
@@ -59,7 +61,7 @@ def user_page(request, slug):
     context = {'user': user, 'user_points':user_points}
     return render(request, 'profile.html', context)
 
-
+@cache_page(CACHE_TTL)
 def profile(request, slug):
     if request.user.username.lower() != slug:
         return redirect('home')
@@ -250,7 +252,7 @@ def delete_blog(request, slug):
     else:
         return render(request, 'blogs/blogdetail.html', {'post': blog_post})
 
-# @cache_page(CACHE_TTL)
+@cache_page(CACHE_TTL)
 def blog_post_detail(request, slug):
     post = get_object_or_404(Posts, slug=slug)
     return render(request, 'blogs/blogdetail.html', {'post':post})
@@ -276,7 +278,7 @@ def edit_blog(request, slug):
 
     return render(request, 'blogs/edit_blog.html', {'form': form, 'post': blog_post})
 
-# @cache_page(CACHE_TTL)
+@cache_page(CACHE_TTL)
 def search_blogs(request):
     blogs = Posts.objects.all()
     form = SearchForm(request.GET)
