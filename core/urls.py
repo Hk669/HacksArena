@@ -7,7 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('main.urls')),
     path('accounts/',include('allauth.urls')),
-    # path('accounts/', include('allauth.socialaccount.urls'), name='social'),
+    path('accounts/', include('allauth.socialaccount.urls'), name='social'),
 ]
 
 handler404 = 'main.views.handling_404'
