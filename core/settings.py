@@ -7,13 +7,14 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-
+if not SECRET_KEY:
+    raise ValueError("The SECRET_KEY setting must not be empty.")
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['hacksarena.azurewebsites.net','127.0.0.1:8000','127.0.0.1','.onrender.com','event.hrushikesh.xyz']
+ALLOWED_HOSTS = ['127.0.0.1:8000','127.0.0.1','*.onrender.com','event.hrushikesh.xyz']
 
 AUTH_USER_MODEL = 'main.User'
 
