@@ -241,13 +241,19 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_REGION_NAME = 'us-east-1'  
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None  # Recommended to prevent setting public ACL by default
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',  # Set cache control headers
+}
 
 # For serving static files directly from S3
 AWS_S3_USE_SSL = True
 AWS_S3_VERIFY = True
-AWS_S3_URL = "https://assets.hacksarena.s3.amazonaws.com/"
+AWS_S3_URL = "https://assests.hacksarena.s3.amazonaws.com/"
 
-STATIC_URL = f"{AWS_S3_URL}static/"
-MEDIA_URL = f"{AWS_S3_URL}media/"
+STATIC_URL = "https://assests.hacksarena.s3.amazonaws.com/static/"
+MEDIA_URL = "https://assests.hacksarena.s3.amazonaws.com/media/"
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
